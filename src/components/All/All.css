@@ -1,0 +1,10 @@
+.allcats {
+    padding: 15px 35px;
+}
+
+.allProducts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    grid-gap: 10px;
+}
