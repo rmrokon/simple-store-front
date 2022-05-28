@@ -1,9 +1,8 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
-import './All.css';
 
-class All extends Component {
+class Tech extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +13,7 @@ class All extends Component {
     getData() {
         const query = gql`
     {
-      category(input: { title: "all" }) {     
+      category(input: { title: "tech" }) {     
         name
         products {
           id
@@ -41,13 +40,11 @@ class All extends Component {
     componentDidMount() {
         this.getData();
     }
-
     render() {
-
         const { providedData } = this.state;
         return (
             <div className='container'>
-                <h1>All</h1>
+                <h1>Tech</h1>
                 <div className='allProducts'>
                     {
                         providedData?.products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
@@ -58,4 +55,4 @@ class All extends Component {
     }
 }
 
-export default All;
+export default Tech;

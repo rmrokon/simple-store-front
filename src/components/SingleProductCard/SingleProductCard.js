@@ -7,7 +7,6 @@ class SingleProductCard extends Component {
         this.state = {
             currencySymbol: "$"
         }
-        // this.getData = this.getData.bind(this);
     }
 
     render() {
