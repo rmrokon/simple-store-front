@@ -1,0 +1,28 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    padding: 20px;
+}
+
+a {
+    margin-right: 8px;
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgba(94, 206, 123, 1);
+    text-decoration: underline;
+}
+
+.flex-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.currencyOptions {
+    margin-right: 10px;
+    border: 0;
+}
