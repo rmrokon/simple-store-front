@@ -1,9 +1,11 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
+import CurrencyContext from '../../Context/CurrencyContext';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
 import './All.css';
 
 class All extends Component {
+    static contextType = CurrencyContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -43,7 +45,7 @@ class All extends Component {
     }
 
     render() {
-
+        const { currency } = this.context;
         const { providedData } = this.state;
         return (
             <div className='container'>

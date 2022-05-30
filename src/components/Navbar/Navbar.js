@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
+import CurrencyContext from '../../Context/CurrencyContext';
+
+
+
+
 
 class Navbar extends Component {
+    static contextType = CurrencyContext;
     render() {
+        const handleCurrencyChange = this?.context.handleCurrencyChange;
         return (
             <div className='navBar'>
                 <div>
@@ -17,7 +24,7 @@ class Navbar extends Component {
                     <img src={shoppingBag} alt="" />
                 </div>
                 <div className='flex-items'>
-                    <select className='currencyOptions'>
+                    <select onChange={(e) => handleCurrencyChange(e.target.value)} className='currencyOptions' name='currency'>
                         <option value="$">$</option>
                         <option value="£">£</option>
                         <option value="A$">A$</option>
@@ -29,5 +36,7 @@ class Navbar extends Component {
         );
     }
 }
+
+
 
 export default Navbar;
