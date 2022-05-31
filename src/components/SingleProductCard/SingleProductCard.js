@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CurrencyContext from '../../Context/CurrencyContext';
 import './SingleProductCard.css';
+import addToCartBtn from '../../assets/addToCart.svg'
 
 class SingleProductCard extends Component {
     static contextType = CurrencyContext;
@@ -11,7 +12,11 @@ class SingleProductCard extends Component {
         const price = prices.find(p => p.currency.symbol === currency);
         return (
             <div className='productCard'>
-                <div className='productImg'><img src={gallery[0]} alt="" /></div>
+                <div className=''>
+                    <img id='productImg' src={gallery[0]} alt="" />
+                    <div className='addToCartBtn'><img style={{ width: "15%" }} src={addToCartBtn} alt="" /></div>
+                </div>
+
                 <div>
                     <h3>{name}</h3>
                     <p><span>{currency}</span> {price.amount}</p>
