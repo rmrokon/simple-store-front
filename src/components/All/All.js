@@ -45,7 +45,7 @@ class All extends Component {
     }
 
     render() {
-        const { currency } = this.context;
+
         const { providedData } = this.state;
         return (
             <div className='container'>

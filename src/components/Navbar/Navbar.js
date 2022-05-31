@@ -4,19 +4,45 @@ import './Navbar.css';
 import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
 import CurrencyContext from '../../Context/CurrencyContext';
+import request, { gql } from 'graphql-request';
 
 
 class Navbar extends Component {
     static contextType = CurrencyContext;
+    state = {
+        categories: []
+    }
+    getData() {
+        const query = gql`
+        {
+            categories {
+              name
+            }
+          }
+    `
+        request('http://localhost:4000', query)
+            .then(data => this.setState({ categories: data.categories }, () => {
+                console.log("check this out", this.state.categories)
+            }))
+
+    }
+
+    componentDidMount() {
+        this.getData();
+    }
     render() {
         const handleCurrencyChange = this?.context.handleCurrencyChange;
+        const { categories } = this.state;
         return (
             <div className='navBar'>
                 <div>
-                    {/* Need to make these links dynamic */}
-                    <Link to={'/all'}>ALL</Link>
-                    <Link to={'/clothes'}>CLOTHES</Link>
-                    <Link to={'/tech'}>TECH</Link>
+
+                    {
+                        categories.map((category, index) =>
+                            <Link key={index} to={`/${category.name}`}>{category.name.toUpperCase()}</Link>
+                        )
+                    }
+
                 </div>
                 <div className=''>
                     <img src={shoppingBag} alt="" />
