@@ -64,47 +64,47 @@ class ProductDescription extends Component {
         const price = prices?.find(p => p.currency.symbol === currency);
 
         return (
-            <div>
-                <div className=''>
-                    <div className='imageContainer'>
-                        <div className='flexSmallImages'>
-                            {
-                                gallery?.map((imgUrl, index) => <img key={index} src={imgUrl} alt=''></img>)
-                            }
-                        </div>
-                        <div>
-                            {gallery && <img id='fullImage' src={gallery[displayImage]} alt="" />}
-                        </div>
-                        <div>
-                            <h3>This is : {name}</h3>
-                            <h3>This is : {inStock ? "Available" : "Out of stock"}</h3>
-                            {
-                                attributes?.map(a =>
-                                    <div key={a.id}>
-                                        <h3>{a.name}</h3>
-                                        <div className='attributeValues'>
-                                            {
-                                                a?.items?.map(item => a.type === "swatch" ? <div style={{ backgroundColor: `${item.value}` }} className='swatch'></div> : <p key={item.id} className='singleAttribute'>{item.value}</p>
-                                                )
-                                            }
+            <div className='productDescription'>
 
-                                        </div>
-                                    </div>
-                                )
-                            }
-                            <h3>Price</h3>
-                            <p><span>{currency}</span> {price?.amount}</p>
-                            <button id='addToCartBtn'>ADD TO CART</button>
-                            <div>
-                                {
-                                    parse(`${description}`)
-                                }
-                            </div>
-                        </div>
+                <div className='imageContainer'>
+                    <div className='flexSmallImages'>
+                        {
+                            gallery?.map((imgUrl, index) => <img key={index} src={imgUrl} alt=''></img>)
+                        }
                     </div>
-
-
+                    <div className='fullImageContainer'>
+                        {gallery && <img id='fullImage' src={gallery[displayImage]} alt="" />}
+                    </div>
                 </div>
+                <div>
+                    <h3>This is : {name}</h3>
+                    <h3>This is : {inStock ? "Available" : "Out of stock"}</h3>
+                    {
+                        attributes?.map(a =>
+                            <div key={a.id}>
+                                <h3>{a.name}</h3>
+                                <div className='attributeValues'>
+                                    {
+                                        a?.items?.map(item => a.type === "swatch" ? <div style={{ backgroundColor: `${item.value}` }} className='swatch'></div> : <p key={item.id} className='singleAttribute'>{item.value}</p>
+                                        )
+                                    }
+
+                                </div>
+                            </div>
+                        )
+                    }
+                    <h3>Price</h3>
+                    <p><span>{currency}</span> {price?.amount}</p>
+                    <button id='addToCartBtn'>ADD TO CART</button>
+                    <div>
+                        {
+                            parse(`${description}`)
+                        }
+                    </div>
+                </div>
+
+
+
             </div>
         )
     }
