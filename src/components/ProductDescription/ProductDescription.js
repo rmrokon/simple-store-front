@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { useParams } from 'react-router-dom';
 import GlobalContext from '../../Context/GlobalContext';
 import './ProductDescription.css';
+import parse from 'html-react-parser';
 
 function withParams(Component) {
     return props => <Component {...props} params={useParams()} />;
@@ -94,9 +95,11 @@ class ProductDescription extends Component {
                             <h3>Price</h3>
                             <p><span>{currency}</span> {price?.amount}</p>
                             <button id='addToCartBtn'>ADD TO CART</button>
-                            {
-                                `${description}`
-                            }
+                            <div>
+                                {
+                                    parse(`${description}`)
+                                }
+                            </div>
                         </div>
                     </div>
 
