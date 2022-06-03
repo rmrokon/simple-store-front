@@ -1,11 +1,11 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
-import CurrencyContext from '../../Context/CurrencyContext';
+import GlobalContext from '../../Context/GlobalContext';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
 import './All.css';
 
 class All extends Component {
-    static contextType = CurrencyContext;
+    static contextType = GlobalContext;
     constructor(props) {
         super(props);
         this.state = {

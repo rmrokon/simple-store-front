@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
-import CurrencyContext from '../../Context/CurrencyContext';
+import GlobalContext from '../../Context/GlobalContext';
 import request, { gql } from 'graphql-request';
 
 
 class Navbar extends Component {
-    static contextType = CurrencyContext;
+    static contextType = GlobalContext;
     state = {
         categories: []
     }
@@ -54,7 +54,11 @@ class Navbar extends Component {
                         <option value="£">£</option>
                         <option value="A$">A$</option>
                     </select>
-                    <img src={shoppingCart} alt="Your Cart" />
+                    <div>
+                        <small id='cart-length'>4</small>
+                        <img src={shoppingCart} alt="Your Cart" />
+                    </div>
+
                 </div>
 
             </div>

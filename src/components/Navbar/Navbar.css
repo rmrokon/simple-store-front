@@ -26,3 +26,15 @@ a:hover {
     margin-right: 10px;
     border: 0;
 }
+
+#cart-length {
+    position: relative;
+    bottom: 13px;
+    left: 30px;
+    background-color: black;
+    color: white;
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 50%;
+    font-weight: bold;
+}

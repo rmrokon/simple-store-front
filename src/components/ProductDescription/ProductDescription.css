@@ -1,0 +1,51 @@
+.imageContainer {
+    display: flex;
+}
+
+.flexSmallImages {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexSmallImages img {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 5px;
+}
+
+#fullImage {
+    margin-left: 4%;
+    width: 40%;
+    /* height: 60%; */
+}
+
+.attributeValues {
+    display: flex;
+
+}
+
+.swatch {
+    margin-right: 5px;
+    width: 32px;
+    height: 32px;
+}
+
+.swatch:hover {
+    border: green;
+}
+
+.singleAttribute {
+    margin-right: 15px;
+    border: 1px solid black;
+    padding: 0 5px;
+}
+
+#addToCartBtn {
+    border: 0;
+    background-color: #5ECE7B;
+    color: white;
+    font-weight: 600;
+    width: 292px;
+    height: 52px;
+    padding: 16px 32px
+}
