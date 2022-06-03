@@ -36,13 +36,17 @@
 }
 
 .swatch {
+    border: 1px solid black;
     margin-right: 5px;
     width: 32px;
     height: 32px;
 }
 
-.swatch:hover {
-    border: green;
+.swatchSelected {
+    border: 2px solid gray;
+    margin-right: 5px;
+    width: 32px;
+    height: 32px;
 }
 
 .singleAttribute {

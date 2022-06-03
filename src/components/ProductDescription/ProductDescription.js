@@ -14,8 +14,10 @@ class ProductDescription extends Component {
         super(props);
         this.state = {
             singleProduct: {},
-            displayImage: 0
+            displayImage: 0,
+            colorSelected: ''
         };
+        this.handleSelectColor = this.handleSelectColor.bind(this);
     }
     static contextType = GlobalContext;
 
@@ -56,10 +58,14 @@ class ProductDescription extends Component {
         this.getData(id);
     }
 
+    handleSelectColor = (item) => {
+        this.setState({ colorSelected: item.id })
+    }
+
     render() {
 
         const { name, gallery, prices, inStock, attributes, description } = this.state.singleProduct;
-        const { displayImage } = this.state;
+        const { displayImage, colorSelected } = this.state;
         const { currency } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
 
@@ -77,15 +83,27 @@ class ProductDescription extends Component {
                     </div>
                 </div>
                 <div>
-                    <h3>This is : {name}</h3>
-                    <h3>This is : {inStock ? "Available" : "Out of stock"}</h3>
+                    <h3>{name}</h3>
+                    <p>{inStock ? "In Stock" : "Out of stock"}</p>
                     {
                         attributes?.map(a =>
                             <div key={a.id}>
                                 <h3>{a.name}</h3>
                                 <div className='attributeValues'>
                                     {
-                                        a?.items?.map(item => a.type === "swatch" ? <div style={{ backgroundColor: `${item.value}` }} className='swatch'></div> : <p key={item.id} className='singleAttribute'>{item.value}</p>
+                                        a?.items?.map(item => a.type === "swatch" ? <button
+                                            key={item.id}
+                                            style={{
+                                                backgroundColor: `${item.value}`,
+                                                border: `${colorSelected === item.id ? "2px solid gray" : ""}`
+                                            }}
+                                            onClick={() => this.handleSelectColor(item)}
+                                            className="swatch" >
+                                        </button>
+
+                                            :
+
+                                            <p key={item.id} className='singleAttribute'>{item.value}</p>
                                         )
                                     }
 
