@@ -15,9 +15,11 @@ class ProductDescription extends Component {
         this.state = {
             singleProduct: {},
             displayImage: 0,
-            colorSelected: ''
+
+
         };
-        this.handleSelectColor = this.handleSelectColor.bind(this);
+        // this.handleSelectColor = this.handleSelectColor.bind(this);
+        // this.handleSelectAttribute = this.handleSelectAttribute.bind(this);
     }
     static contextType = GlobalContext;
 
@@ -25,6 +27,7 @@ class ProductDescription extends Component {
         const query = gql`
     {
         product(id: "${id}") {
+            id
             name
             gallery
             prices{
@@ -58,16 +61,17 @@ class ProductDescription extends Component {
         this.getData(id);
     }
 
-    handleSelectColor = (item) => {
-        this.setState({ colorSelected: item.id })
-    }
+
+
+
 
     render() {
 
         const { name, gallery, prices, inStock, attributes, description } = this.state.singleProduct;
-        const { displayImage, colorSelected } = this.state;
-        const { currency } = this.context;
+        const { displayImage } = this.state;
+        const { currency, handleSelectAttribute, order, handleSelectColor, colorSelected, handleAddToCart, cart } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
+        console.log("this is cart", cart);
 
         return (
             <div className='productDescription'>
@@ -97,13 +101,14 @@ class ProductDescription extends Component {
                                                 backgroundColor: `${item.value}`,
                                                 border: `${colorSelected === item.id ? "2px solid gray" : ""}`
                                             }}
-                                            onClick={() => this.handleSelectColor(item)}
-                                            className="swatch" >
+                                            onClick={() => handleSelectColor(item.id)}
+                                            className="swatch"
+                                            disabled={!inStock}>
                                         </button>
 
                                             :
 
-                                            <p key={item.id} className='singleAttribute'>{item.value}</p>
+                                            <p key={item.id} onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}</p>
                                         )
                                     }
 
@@ -113,7 +118,7 @@ class ProductDescription extends Component {
                     }
                     <h3>Price</h3>
                     <p><span>{currency}</span> {price?.amount}</p>
-                    <button id='addToCartBtn'>ADD TO CART</button>
+                    <button onClick={() => handleAddToCart(this.state.singleProduct)} id='addToCartBtn'>ADD TO CART</button>
                     <div>
                         {
                             parse(`${description}`)

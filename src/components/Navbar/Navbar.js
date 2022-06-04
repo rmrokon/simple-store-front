@@ -31,7 +31,7 @@ class Navbar extends Component {
         this.getData();
     }
     render() {
-        const handleCurrencyChange = this?.context.handleCurrencyChange;
+        const { handleCurrencyChange, cart } = this.context;
         const { categories } = this.state;
         return (
             <div className='navBar'>
@@ -55,7 +55,7 @@ class Navbar extends Component {
                         <option value="A$">A$</option>
                     </select>
                     <div>
-                        <small id='cart-length'>4</small>
+                        <small id='cart-length'>{cart?.length}</small>
                         <img src={shoppingCart} alt="Your Cart" />
                     </div>
 
