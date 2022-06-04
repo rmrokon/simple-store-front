@@ -16,7 +16,6 @@ class ProductDescription extends Component {
             singleProduct: {},
             displayImage: 0,
 
-
         };
         // this.handleSelectColor = this.handleSelectColor.bind(this);
         // this.handleSelectAttribute = this.handleSelectAttribute.bind(this);
@@ -69,7 +68,7 @@ class ProductDescription extends Component {
 
         const { name, gallery, prices, inStock, attributes, description } = this.state.singleProduct;
         const { displayImage } = this.state;
-        const { currency, handleSelectAttribute, order, handleSelectColor, colorSelected, handleAddToCart, cart } = this.context;
+        const { currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, cart, attributeSelected } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
         console.log("this is cart", cart);
 
@@ -108,7 +107,7 @@ class ProductDescription extends Component {
 
                                             :
 
-                                            <p key={item.id} onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}</p>
+                                            <p key={item.id} style={{ backgroundColor: `${attributeSelected === item.id ? "black" : ""}`, color: `${attributeSelected === item.id ? "white" : ""}` }} onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}</p>
                                         )
                                     }
 
@@ -118,7 +117,7 @@ class ProductDescription extends Component {
                     }
                     <h3>Price</h3>
                     <p><span>{currency}</span> {price?.amount}</p>
-                    <button onClick={() => handleAddToCart(this.state.singleProduct)} id='addToCartBtn'>ADD TO CART</button>
+                    <button onClick={() => handleAddToCart(this.state.singleProduct)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
                     <div>
                         {
                             parse(`${description}`)
