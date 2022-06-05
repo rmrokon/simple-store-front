@@ -29,6 +29,7 @@ class Navbar extends Component {
 
     componentDidMount() {
         this.getData();
+        this.context.calculateTotalProductOnCart();
     }
     render() {
         const { handleCurrencyChange, totalProductsOnCart } = this.context;

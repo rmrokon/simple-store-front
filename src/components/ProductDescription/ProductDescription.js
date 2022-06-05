@@ -107,7 +107,11 @@ class ProductDescription extends Component {
 
                                             :
 
-                                            <p key={item.id} style={{ backgroundColor: `${attributeSelected === item.id ? "black" : ""}`, color: `${attributeSelected === item.id ? "white" : ""}` }} onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}</p>
+                                            <p
+                                                key={item.id}
+                                                style={{ backgroundColor: `${(a.name === attributeSelected[0] && item.value === attributeSelected[1]) ? "black" : ""}`, color: `${(a.name === attributeSelected[0] && item.value === attributeSelected[1]) ? "white" : ""}` }}
+                                                onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}
+                                            </p>
                                         )
                                     }
 

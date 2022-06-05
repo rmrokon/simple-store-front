@@ -9,13 +9,15 @@ export class ContextProvider extends Component {
         cart: [],
         order: {},
         colorSelected: '',
-        attributeSelected: '',
+        attributeSelected: [],
         totalProductsOnCart: 0
     }
 
     handleCurrencyChange = (currencyInput) => {
         this.setState({ currency: currencyInput })
     }
+
+    // Adding product to the cart
 
     handleAddToCart = (product) => {
         const { id } = product;
@@ -37,6 +39,7 @@ export class ContextProvider extends Component {
         }
 
         this.calculateTotalProductOnCart();
+        localStorage.setItem("cart", JSON.stringify(this.state.cart));
 
     }
 
@@ -44,31 +47,46 @@ export class ContextProvider extends Component {
         this.setState({ product: productClicked })
     }
 
+    // Selecting attribute except color
+
     handleSelectAttribute = (attribute, item) => {
 
-        const { value, id } = item;
+        const { value } = item;
         const { name } = attribute;
         let attributeEntry = {};
         attributeEntry[name] = value;
         const newOrder = { ...this.state.order, ...attributeEntry }
         this.setState({ order: newOrder })
-        this.setState({ attributeSelected: id })
+        this.setState({ attributeSelected: [name, value] })
     }
+
+    // Selecting color attribute
 
     handleSelectColor = (colorId) => {
         const color = colorId;
-
         const newOrder = { ...this.state.order, color }
         this.setState({ order: newOrder })
         this.setState({ colorSelected: colorId })
     }
 
+    // Getting cart from local storage
+
+    getCart = () => {
+        const storedCart = localStorage.getItem("cart");
+        return JSON.parse(storedCart);
+    }
+
+
+    // Calculating total product quantity on cart
+
     calculateTotalProductOnCart = () => {
+        const storedCart = this.getCart();
         let quantity = 0;
-        const { cart } = this.state;
-        cart.map(order => quantity += order.quantity)
+        // const { cart } = this.state;
+        storedCart?.map(order => quantity += order.quantity)
         this.setState({ totalProductsOnCart: quantity })
     }
+
 
     render() {
         const { currency, order, colorSelected, cart, attributeSelected, totalProductsOnCart } = this.state;
