@@ -9,9 +9,14 @@ import request, { gql } from 'graphql-request';
 
 class Navbar extends Component {
     static contextType = GlobalContext;
-    state = {
-        categories: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            categories: [],
+        }
+
     }
+
     getData() {
         const query = gql`
         {
@@ -22,35 +27,33 @@ class Navbar extends Component {
     `
         request('http://localhost:4000', query)
             .then(data => this.setState({ categories: data.categories }, () => {
-                console.log("check this out", this.state.categories)
             }))
-
     }
 
     componentDidMount() {
         this.getData();
-        this.context.calculateTotalProductOnCart();
     }
+
+
     render() {
         const { handleCurrencyChange, totalProductsOnCart } = this.context;
         const { categories } = this.state;
+
+
         return (
             <div className='navBar'>
                 <div>
-
                     {
                         categories.map((category, index) =>
                             <Link key={index} to={`/${category.name}`}>{category.name.toUpperCase()}</Link>
                         )
                     }
-
                 </div>
                 <div className=''>
                     <img src={shoppingBag} alt="" />
                 </div>
                 <div className='flex-items'>
                     <select onChange={(e) => handleCurrencyChange(e.target.value)} className='currencyOptions' name='currency'>
-                        {/* Need to make this options dynamic */}
                         <option value="$">$</option>
                         <option value="£">£</option>
                         <option value="A$">A$</option>

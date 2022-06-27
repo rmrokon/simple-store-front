@@ -3,14 +3,17 @@ import React, { Component } from "react";
 const GlobalContext = React.createContext();
 
 export class ContextProvider extends Component {
-    state = {
-        currency: "$",
-        product: {},
-        cart: [],
-        order: {},
-        colorSelected: '',
-        attributeSelected: [],
-        totalProductsOnCart: 0
+    constructor(props) {
+        super(props);
+        this.state = {
+            currency: "$",
+            product: {},
+            cart: [],
+            order: {},
+            colorSelected: '',
+            totalProductsOnCart: 0,
+        }
+
     }
 
     handleCurrencyChange = (currencyInput) => {
@@ -20,12 +23,20 @@ export class ContextProvider extends Component {
     // Adding product to the cart
 
     handleAddToCart = (product) => {
+        console.log("this is order", this.state.order);
+        console.log("this is cart", this.state.cart);
         const { id } = product;
+        let orderWithSameAttributes;
         const existingOrdersOfTheProduct = this.state.cart.filter(o => o.id === id);
-        const orderWithSameAttributes = existingOrdersOfTheProduct.find(order => {
-            const { id, quantity, ...rest } = order;
-            return JSON.stringify(this.state.order) === JSON.stringify(rest);
-        })
+
+        if (existingOrdersOfTheProduct) {
+            orderWithSameAttributes = existingOrdersOfTheProduct.find(order => {
+                const { id, quantity, ...rest } = order;
+                return JSON.stringify(this.state.order) === JSON.stringify(rest);
+            })
+        }
+
+        console.log("this is orderwithsame atto", orderWithSameAttributes)
 
         if (!orderWithSameAttributes) {
             const newOrder = {
@@ -33,16 +44,15 @@ export class ContextProvider extends Component {
                 id,
                 quantity: 1,
             }
-            this.state.cart.push(newOrder);
+            const newCart = [...this.state.cart, newOrder]
+            console.log("this is newcart", newCart)
+            this.setState({ cart: newCart });
+            this.calculateTotalProductOnCart(newCart);
         } else {
             alert("Product with the same attributes already added to the cart!");
         }
 
-        this.calculateTotalProductOnCart();
-        localStorage.setItem("cart", JSON.stringify(this.state.cart));
-
     }
-
     handleProductDetails = (productClicked) => {
         this.setState({ product: productClicked })
     }
@@ -57,7 +67,8 @@ export class ContextProvider extends Component {
         attributeEntry[name] = value;
         const newOrder = { ...this.state.order, ...attributeEntry }
         this.setState({ order: newOrder })
-        this.setState({ attributeSelected: [name, value] })
+        const newAttributeSelection = { ...this.state.attributeSelected, ...attributeEntry }
+        this.setState({ attributeSelected: newAttributeSelection })
     }
 
     // Selecting color attribute
@@ -69,28 +80,16 @@ export class ContextProvider extends Component {
         this.setState({ colorSelected: colorId })
     }
 
-    // Getting cart from local storage
 
-    getCart = () => {
-        const storedCart = localStorage.getItem("cart");
-        return JSON.parse(storedCart);
-    }
-
-
-    // Calculating total product quantity on cart
-
-    calculateTotalProductOnCart = () => {
-        const storedCart = this.getCart();
+    calculateTotalProductOnCart = (cart) => {
         let quantity = 0;
-        // const { cart } = this.state;
-        storedCart?.map(order => quantity += order.quantity)
-        this.setState({ totalProductsOnCart: quantity })
+        cart?.map(order => quantity += order.quantity)
+        this.setState({ totalProductsOnCart: quantity });
     }
-
 
     render() {
-        const { currency, order, colorSelected, cart, attributeSelected, totalProductsOnCart } = this.state;
-        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, calculateTotalProductOnCart } = this;
+        const { currency, order, colorSelected, cart, totalProductsOnCart } = this.state;
+        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart } = this;
 
         return (
             <GlobalContext.Provider value={{
@@ -98,14 +97,13 @@ export class ContextProvider extends Component {
                 order,
                 colorSelected,
                 cart,
-                attributeSelected,
                 totalProductsOnCart,
                 handleCurrencyChange,
                 handleAddToCart,
                 handleProductDetails,
                 handleSelectAttribute,
                 handleSelectColor,
-                calculateTotalProductOnCart
+                getCart
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

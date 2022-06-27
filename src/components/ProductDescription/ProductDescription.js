@@ -17,8 +17,7 @@ class ProductDescription extends Component {
             displayImage: 0,
 
         };
-        // this.handleSelectColor = this.handleSelectColor.bind(this);
-        // this.handleSelectAttribute = this.handleSelectAttribute.bind(this);
+
     }
     static contextType = GlobalContext;
 
@@ -59,18 +58,14 @@ class ProductDescription extends Component {
         const { id } = this.props.params;
         this.getData(id);
     }
-
-
-
-
-
     render() {
 
         const { name, gallery, prices, inStock, attributes, description } = this.state.singleProduct;
         const { displayImage } = this.state;
-        const { currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, cart, attributeSelected } = this.context;
+        const { currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, order } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
-        console.log("this is cart", cart);
+        console.log(order);
+
 
         return (
             <div className='productDescription'>
@@ -78,7 +73,7 @@ class ProductDescription extends Component {
                 <div className='imageContainer'>
                     <div className='flexSmallImages'>
                         {
-                            gallery?.map((imgUrl, index) => <img key={index} src={imgUrl} alt=''></img>)
+                            gallery?.map((imgUrl, index) => <img onClick={() => this.setState({ displayImage: index })} key={index} src={imgUrl} alt=''></img>)
                         }
                     </div>
                     <div className='fullImageContainer'>
@@ -107,11 +102,11 @@ class ProductDescription extends Component {
 
                                             :
 
-                                            <p
+                                            <button
                                                 key={item.id}
-                                                style={{ backgroundColor: `${(a.name === attributeSelected[0] && item.value === attributeSelected[1]) ? "black" : ""}`, color: `${(a.name === attributeSelected[0] && item.value === attributeSelected[1]) ? "white" : ""}` }}
+                                                style={{ backgroundColor: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "black" : ""}`, color: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "white" : ""}` }}
                                                 onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}
-                                            </p>
+                                            </button>
                                         )
                                     }
 
