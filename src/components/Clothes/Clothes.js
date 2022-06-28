@@ -1,5 +1,6 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
+import SelectAtrributeDrawer from '../SelectAtrributeDrawer/SelectAtrributeDrawer';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
 
 class Clothes extends Component {
@@ -26,6 +27,17 @@ class Clothes extends Component {
             }
             amount
           }
+          inStock
+            attributes{
+                id
+                name
+                type
+                items{
+                    displayValue
+                    value
+                    id
+                }
+            }
         }
       }
     }
@@ -50,6 +62,7 @@ class Clothes extends Component {
                         providedData?.products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
                     }
                 </div>
+                <SelectAtrributeDrawer></SelectAtrributeDrawer>
             </div>
         );
     }

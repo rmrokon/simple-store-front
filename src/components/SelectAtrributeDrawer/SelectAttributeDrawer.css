@@ -1,0 +1,13 @@
+.aside-drawer {
+    background-color: gray;
+    opacity: 95%;
+    width: 30%;
+    height: auto;
+    position: fixed;
+    top: 15%;
+    left: 70%;
+}
+
+.select-Attributes {
+    padding: 5%;
+}

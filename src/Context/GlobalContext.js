@@ -12,8 +12,15 @@ export class ContextProvider extends Component {
             order: {},
             colorSelected: '',
             totalProductsOnCart: 0,
+            openDrawer: false,
+            productOnDrawer: {}
         }
+        this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
+    }
 
+    handleOpenDrawer(product) {
+        this.setState({ productOnDrawer: product })
+        this.setState({ openDrawer: !this.state.openDrawer })
     }
 
     handleCurrencyChange = (currencyInput) => {
@@ -88,8 +95,8 @@ export class ContextProvider extends Component {
     }
 
     render() {
-        const { currency, order, colorSelected, cart, totalProductsOnCart } = this.state;
-        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart } = this;
+        const { currency, order, colorSelected, cart, totalProductsOnCart, openDrawer, productOnDrawer } = this.state;
+        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart, handleOpenDrawer } = this;
 
         return (
             <GlobalContext.Provider value={{
@@ -103,7 +110,10 @@ export class ContextProvider extends Component {
                 handleProductDetails,
                 handleSelectAttribute,
                 handleSelectColor,
-                getCart
+                getCart,
+                handleOpenDrawer,
+                openDrawer,
+                productOnDrawer
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

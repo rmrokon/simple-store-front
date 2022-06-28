@@ -1,6 +1,7 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
+import SelectAtrributeDrawer from '../SelectAtrributeDrawer/SelectAtrributeDrawer';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
 import './All.css';
 
@@ -9,7 +10,8 @@ class All extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            providedData: []
+            providedData: [],
+
         }
         // this.getData = this.getData.bind(this);
     }
@@ -29,6 +31,17 @@ class All extends Component {
             }
             amount
           }
+          inStock
+            attributes{
+                id
+                name
+                type
+                items{
+                    displayValue
+                    value
+                    id
+                }
+            }
         }
       }
     }
@@ -40,12 +53,13 @@ class All extends Component {
 
     }
 
+
+
     componentDidMount() {
         this.getData();
     }
 
     render() {
-
         const { providedData } = this.state;
         return (
             <div className='container'>
@@ -55,6 +69,7 @@ class All extends Component {
                         providedData?.products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
                     }
                 </div>
+                <SelectAtrributeDrawer></SelectAtrributeDrawer>
             </div>
         );
     }
