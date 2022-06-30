@@ -1,6 +1,7 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
+import CartOverlay from '../CartOverlay/CartOverlay';
 import SelectAtrributeDrawer from '../SelectAtrributeDrawer/SelectAtrributeDrawer';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
 import './All.css';
@@ -61,6 +62,7 @@ class All extends Component {
 
     render() {
         const { providedData } = this.state;
+        const { openCartOverlay } = this.context;
         return (
             <div className='container'>
                 <h1>All</h1>
@@ -70,6 +72,9 @@ class All extends Component {
                     }
                 </div>
                 <SelectAtrributeDrawer></SelectAtrributeDrawer>
+                <div style={{ display: `${openCartOverlay ? "block" : "none"}` }} className='overlayContainer'>
+                    <CartOverlay></CartOverlay>
+                </div>
             </div>
         );
     }

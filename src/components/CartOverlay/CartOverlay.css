@@ -1,0 +1,34 @@
+.cartOverlay {
+    position: absolute;
+    top: 0;
+    right: 18%;
+    width: 325px;
+    padding: 1%;
+    height: 80vh;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.cartOverlayBtnsContainer {
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.cartOverlayBtns {
+    width: 140px;
+    height: 40px;
+}
+
+.checkOutBtn {
+    border: 0;
+    background-color: #5ECE7B;
+    color: white;
+}
+
+.viewBagBtn {
+    border: 1px solid #1D1F22;
+    background-color: white;
+    color: black;
+    margin-right: 4px;
+}

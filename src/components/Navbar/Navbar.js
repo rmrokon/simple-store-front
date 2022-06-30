@@ -5,6 +5,7 @@ import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
 import GlobalContext from '../../Context/GlobalContext';
 import request, { gql } from 'graphql-request';
+import CartOverlay from '../CartOverlay/CartOverlay';
 
 
 class Navbar extends Component {
@@ -36,7 +37,7 @@ class Navbar extends Component {
 
 
     render() {
-        const { handleCurrencyChange, totalProductsOnCart } = this.context;
+        const { handleCurrencyChange, totalProductsOnCart, toggleCartOverlay } = this.context;
         const { categories } = this.state;
 
 
@@ -58,13 +59,11 @@ class Navbar extends Component {
                         <option value="£">£</option>
                         <option value="A$">A$</option>
                     </select>
-                    <div>
+                    <div onClick={toggleCartOverlay}>
                         <small id='cart-length'>{totalProductsOnCart}</small>
                         <img src={shoppingCart} alt="Your Cart" />
                     </div>
-
                 </div>
-
             </div>
         );
     }

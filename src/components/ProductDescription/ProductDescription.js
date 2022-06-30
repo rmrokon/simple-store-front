@@ -116,7 +116,7 @@ class ProductDescription extends Component {
                     }
                     <h3>Price</h3>
                     <p><span>{currency}</span> {price?.amount}</p>
-                    <button onClick={() => handleAddToCart(this.state.singleProduct)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
+                    <button onClick={() => handleAddToCart(this.state.singleProduct, price?.amount)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
                     <div>
                         {
                             parse(`${description}`)

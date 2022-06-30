@@ -48,7 +48,7 @@ class SelectAtrributeDrawer extends Component {
                     }
                     <h3>Price</h3>
                     <p><span>{currency}</span> {price?.amount}</p>
-                    <button onClick={() => handleAddToCart(productOnDrawer)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
+                    <button onClick={() => handleAddToCart(productOnDrawer, price?.amount)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
                 </div>
             </div>
         );
