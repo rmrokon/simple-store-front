@@ -21,9 +21,30 @@ a:hover {
     align-items: center;
 }
 
+.selecCurrencyContainer {
+    position: relative;
+
+}
+
 .currencyOptions {
-    margin-right: 10px;
-    border: 0;
+    position: absolute;
+    width: 70px;
+    padding-left: 0;
+    left: -90%;
+    display: none;
+    z-index: 10;
+    background-color: white;
+    box-shadow: 5px 5px 5px 1px gray;
+}
+
+.currencyOptions li {
+    padding: 10%;
+    list-style: none;
+    margin-bottom: 4px;
+}
+
+.currencyOptions li:hover {
+    background-color: rgba(128, 128, 128, 0.318);
 }
 
 #cart-length {
@@ -36,4 +57,9 @@ a:hover {
     padding: 1px 4px;
     border-radius: 50%;
     font-weight: bold;
+}
+
+.currencySwitcherBtn {
+    border: 0;
+    background-color: white;
 }

@@ -5,7 +5,6 @@ import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
 import GlobalContext from '../../Context/GlobalContext';
 import request, { gql } from 'graphql-request';
-import CartOverlay from '../CartOverlay/CartOverlay';
 
 
 class Navbar extends Component {
@@ -14,6 +13,7 @@ class Navbar extends Component {
         super(props);
         this.state = {
             categories: [],
+            currencies: [],
         }
 
     }
@@ -31,13 +31,33 @@ class Navbar extends Component {
             }))
     }
 
+    getCurrency() {
+        const query = gql`
+        {
+            product(id: "jacket-canada-goosee") {
+                id
+                prices{
+                    currency{
+                      label
+                      symbol
+                    }
+                  }
+            }
+        }
+        `
+        request('http://localhost:4000', query)
+            .then(data => this.setState({ currencies: data.product.prices }, () => {
+            }))
+    }
+
     componentDidMount() {
         this.getData();
+        this.getCurrency();
     }
 
 
     render() {
-        const { handleCurrencyChange, totalProductsOnCart, toggleCartOverlay } = this.context;
+        const { handleCurrencyChange, totalProductsOnCart, toggleCartOverlay, currency, toggleDropDown, openDropDown } = this.context;
         const { categories } = this.state;
 
 
@@ -54,11 +74,27 @@ class Navbar extends Component {
                     <img src={shoppingBag} alt="" />
                 </div>
                 <div className='flex-items'>
-                    <select onChange={(e) => handleCurrencyChange(e.target.value)} className='currencyOptions' name='currency'>
-                        <option value="$">$</option>
-                        <option value="£">£</option>
-                        <option value="A$">A$</option>
-                    </select>
+                    <div className='selecCurrencyContainer'>
+                        <div><span>{currency}</span><button className='currencySwitcherBtn' onClick={toggleDropDown}>
+                            {
+                                this.state.openDropDown ? <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 3.5L4 0.5L7 3.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                    :
+                                    <svg width="8" height="4" viewBox="0 0 8 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 0.5L4 3.5L7 0.5" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                            }
+
+
+                        </button></div>
+                        <ul style={{ display: `${openDropDown ? "block" : "none"}` }} className='currencyOptions'>
+                            {
+                                this.state.currencies.map((c, index) => <li onClick={() => handleCurrencyChange(c.currency.symbol)} key={index}>{c.currency.symbol} {c.currency.label}</li>)
+                            }
+                        </ul>
+                    </div>
                     <div onClick={toggleCartOverlay}>
                         <small id='cart-length'>{totalProductsOnCart}</small>
                         <img src={shoppingCart} alt="Your Cart" />
