@@ -1,0 +1,23 @@
+.carouselContainer {
+    width: 120px;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.carouselBtns {
+    display: flex;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+}
+
+.carouselBtns button {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border: 0;
+    background-color: rgba(0, 0, 0, 0.634);
+
+}

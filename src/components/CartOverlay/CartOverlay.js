@@ -1,5 +1,6 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import GlobalContext from '../../Context/GlobalContext';
 import SingleProductOnCart from '../SingleProductOnCart/SingleProductOnCart';
 import './CartOverlay.css';
@@ -8,11 +9,11 @@ class CartOverlay extends Component {
     static contextType = GlobalContext;
 
     render() {
-        const { cart, productsOnCart, total, currency } = this.context;
+        const { productsOnCart, total, currency } = this.context;
 
         return (
             <div className='cartOverlay'>
-                <h3>My Bag<span style={{ fontWeight: "normal" }}>, {cart.length} items</span></h3>
+                <h3>My Bag<span style={{ fontWeight: "normal" }}>, {productsOnCart.length} items</span></h3>
                 <div>
                     {
                         productsOnCart.map(p => <SingleProductOnCart key={p._id} p={p}></SingleProductOnCart>)
@@ -23,7 +24,7 @@ class CartOverlay extends Component {
                     <div>{currency}{total?.toFixed(2)}</div>
                 </div>
                 <div className='cartOverlayBtnsContainer'>
-                    <button className='cartOverlayBtns viewBagBtn'>VIEW BAG</button>
+                    <Link to={'/cartPage'}><button className='cartOverlayBtns viewBagBtn'>VIEW BAG</button></Link>
                     <button className='cartOverlayBtns checkOutBtn'>CHECK OUT</button>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import Clothes from './components/Clothes/Clothes';
 import Tech from './components/Tech/Tech';
 import { ContextProvider } from './Context/GlobalContext';
 import ProductDescription from './components/ProductDescription/ProductDescription';
+import CartPage from './components/CartPage/CartPage';
 
 
 
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path='/' element={<Home></Home>}></Route>
             <Route path='/clothes' element={<Clothes></Clothes>}></Route>
             <Route path='/tech' element={<Tech></Tech>}></Route>
+            <Route path='/cartPage' element={<CartPage></CartPage>}></Route>
             <Route path='/productDescription/:id' element={<ProductDescription />}></Route>
           </Routes>
         </ContextProvider>

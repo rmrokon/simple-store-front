@@ -1,0 +1,23 @@
+.singleProductOnCartPage {
+    border-top: 1px solid rgba(128, 128, 128, 0.198);
+    padding: 15px;
+}
+
+.boldText {
+    font-weight: 700;
+}
+
+.orderBtn {
+    border: 0;
+    background-color: #5ECE7B;
+    color: white;
+    width: 279px;
+    height: 43px;
+    padding: 16px 32px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.totalAmountSection {
+    border-top: 1px solid rgba(128, 128, 128, 0.198);
+}

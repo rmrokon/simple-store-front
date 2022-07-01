@@ -18,6 +18,7 @@ export class ContextProvider extends Component {
             productsOnCart: [],
             productQuantity: 1,
             total: 0,
+            tax: 0
         }
         this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
         this.toggleCartOverlay = this.toggleCartOverlay.bind(this);
@@ -25,16 +26,24 @@ export class ContextProvider extends Component {
         this.decreaseQuantityAndPrice = this.decreaseQuantityAndPrice.bind(this);
         this.calculateTotalAmount = this.calculateTotalAmount.bind(this);
         this.handleTotalProductsOnCart = this.handleTotalProductsOnCart.bind(this);
+        this.calculateTax = this.calculateTax.bind(this);
+    }
+
+    calculateTax(totalAmount) {
+        const totalTax = (totalAmount * 21) / 100;
+        this.setState({ tax: totalTax });
     }
 
     calculateTotalAmount(price, decrease = false) {
         if (!decrease) {
             const newTotal = this.state.total + price;
             this.setState({ total: newTotal });
+            this.calculateTax(newTotal)
         }
         if (decrease) {
             const newTotal = this.state.total - price;
             this.setState({ total: newTotal });
+            this.calculateTax(newTotal)
         }
 
     }
@@ -159,9 +168,9 @@ export class ContextProvider extends Component {
     }
 
     render() {
-        const { currency, order, colorSelected, cart, totalProductsOnCart, openDrawer, productOnDrawer, openCartOverlay, productsOnCart, productQuantity, total } = this.state;
+        const { currency, order, colorSelected, cart, totalProductsOnCart, openDrawer, productOnDrawer, openCartOverlay, productsOnCart, productQuantity, total, tax } = this.state;
 
-        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart, handleOpenDrawer, toggleCartOverlay, increaseQuantityAndPrice, decreaseQuantityAndPrice } = this;
+        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart, handleOpenDrawer, toggleCartOverlay, increaseQuantityAndPrice, decreaseQuantityAndPrice, calculateTax } = this;
 
         return (
             <GlobalContext.Provider value={{
@@ -185,7 +194,9 @@ export class ContextProvider extends Component {
                 productQuantity,
                 total,
                 increaseQuantityAndPrice,
-                decreaseQuantityAndPrice
+                decreaseQuantityAndPrice,
+                tax,
+                calculateTax
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

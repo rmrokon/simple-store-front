@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
+import Carousel from '../Carousel/Carousel';
 import './SingleProductOnCart.css'
 
 class SingleProductOnCart extends Component {
@@ -13,6 +14,7 @@ class SingleProductOnCart extends Component {
     }
 
     render() {
+        const { carousel } = this.props;
         const { name, prices, gallery, attributes, selectedAtrributes } = this.props.p;
         const { currency, increaseQuantityAndPrice, decreaseQuantityAndPrice } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
@@ -54,14 +56,22 @@ class SingleProductOnCart extends Component {
                     </div>
                 </div>
 
-                <div className='quantityControlContainer'>
-                    <div><button onClick={() => increaseQuantityAndPrice(this.props.p, price?.amount)}>+</button></div>
-                    <div><span>{selectedAtrributes.quantity}</span></div>
-                    <div><button onClick={() => decreaseQuantityAndPrice(this.props.p, price?.amount)}>-</button></div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <div className='quantityControlContainer'>
+                        <div><button onClick={() => increaseQuantityAndPrice(this.props.p, price?.amount)}>+</button></div>
+                        <div><span>{selectedAtrributes.quantity}</span></div>
+                        <div><button onClick={() => decreaseQuantityAndPrice(this.props.p, price?.amount)}>-</button></div>
+                    </div>
+                    {
+                        carousel ? <Carousel gallery={gallery}></Carousel>
+                            :
+                            <div style={{ width: "120px", height: "170px", display: "flex", alignItems: "center" }}>
+                                <img width={"100%"} src={gallery[0]} alt="" />
+                            </div>
+                    }
                 </div>
-                <div style={{ width: "120px", height: "170px", display: "flex", alignItems: "center" }}>
-                    <img width={"100%"} src={gallery[0]} alt="" />
-                </div>
+
+
             </div>
         );
     }
