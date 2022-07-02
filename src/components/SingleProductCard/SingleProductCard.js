@@ -9,14 +9,19 @@ class SingleProductCard extends Component {
     static contextType = GlobalContext;
 
     render() {
-        const { name, prices, gallery, id } = this.props.product;
+        const { name, prices, gallery, id, inStock } = this.props.product;
         const { currency, handleOpenDrawer } = this.context;
         const price = prices.find(p => p.currency.symbol === currency);
         return (
             <div className='productCard'>
                 <div className=''>
                     <img id='productImg' src={gallery[0]} alt="" />
-                    <div onClick={() => handleOpenDrawer(this.props.product)} className='addToCartBtn'><img style={{ width: "15%" }} src={addToCartBtn} alt="" /></div>
+                    <div style={{ display: `${!inStock ? "block" : ""}` }} className='outOfStock'><p>Out of Stock</p></div>
+                    <div
+                        onClick={() => handleOpenDrawer(this.props.product)}
+                        className='addToCartBtn'
+                        style={{ visibility: `${!inStock ? "hidden" : ""}` }}
+                    ><img style={{ width: "15%" }} src={addToCartBtn} alt="" /></div>
                 </div>
 
                 <div>
