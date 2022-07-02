@@ -78,7 +78,7 @@ class CategoryWiseProducts extends Component {
 
         return (
             <div className='container'>
-                <h1>{name}</h1>
+                <h1>{name?.toUpperCase()}</h1>
                 <div className='allProducts'>
                     {
                         products?.map(product => <SingleProductCard product={product}></SingleProductCard>)

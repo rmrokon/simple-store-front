@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Navbar.css';
 import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
@@ -14,7 +14,7 @@ class Navbar extends Component {
         this.state = {
             categories: [],
             currencies: [],
-            category: ""
+            activeRoute: ""
         }
 
     }
@@ -51,8 +51,8 @@ class Navbar extends Component {
             }))
     }
 
-    handleCategory(category) {
-        console.log(category)
+    handleActiveRoute(route) {
+        this.setState({ activeRoute: route })
     }
 
     componentDidMount() {
@@ -70,7 +70,14 @@ class Navbar extends Component {
                 <div>
                     {
                         categories.map((category, index) =>
-                            <Link key={index} to={`/${category.name}`}>{category.name.toUpperCase()}</Link>
+                            <NavLink
+                                onClick={() => this.handleActiveRoute(category.name)}
+                                key={index} to={`/${category.name}`}
+                                style={{
+                                    color: `${(this.state.activeRoute === category.name) ? "rgba(94, 206, 123, 1)" : ""}`,
+                                    textDecoration: `${(this.state.activeRoute === category.name) ? "underline" : ""}`
+                                }}
+                            >{category.name.toUpperCase()}</NavLink>
                         )
                     }
                 </div>
