@@ -37,16 +37,18 @@ export default class Carousel extends Component {
             <div className='carouselContainer'>
                 <img width={"100%"} src={gallery[this.state.activeIndex]} alt="" />
 
-                <div className='carouselBtns'>
-                    <button onClick={this.showPreviousImage}><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.25 1.06857L1.625 6.6876L7.25 12.3066" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></button>
+                {
+                    gallery.length > 1 && <div className='carouselBtns'>
+                        <button onClick={this.showPreviousImage}><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.25 1.06857L1.625 6.6876L7.25 12.3066" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg></button>
 
-                    <button onClick={this.showNextImage}><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.75 1.06808L6.375 6.68711L0.75 12.3062" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    </button>
-                </div>
+                        <button onClick={this.showNextImage}><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.75 1.06808L6.375 6.68711L0.75 12.3062" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        </button>
+                    </div>
+                }
             </div>
         )
     }

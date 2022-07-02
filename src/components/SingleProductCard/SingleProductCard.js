@@ -20,8 +20,8 @@ class SingleProductCard extends Component {
                 </div>
 
                 <div>
-                    <Link to={`/productDescription/${id}`}> <h3>{name}</h3></Link>
-                    <p><span>{currency}</span> {price.amount}</p>
+                    <Link to={`/productDescription/${id}`}> <h3 style={{ marginTop: "0", marginBottom: "0" }}>{name}</h3></Link>
+                    <p style={{ marginTop: "0", marginBottom: "1%" }}><span>{currency}</span> {price.amount}</p>
                 </div>
 
             </div>

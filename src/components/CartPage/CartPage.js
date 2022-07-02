@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import GlobalContext from '../../Context/GlobalContext';
+import CartOverlay from '../CartOverlay/CartOverlay';
 import SingleProductOnCart from '../SingleProductOnCart/SingleProductOnCart';
 import './CartPage.css';
 

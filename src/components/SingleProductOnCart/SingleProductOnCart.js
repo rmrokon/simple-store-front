@@ -65,7 +65,7 @@ class SingleProductOnCart extends Component {
                     {
                         carousel ? <Carousel gallery={gallery}></Carousel>
                             :
-                            <div style={{ width: "120px", height: "170px", display: "flex", alignItems: "center" }}>
+                            <div style={{ width: "110px", height: "170px", display: "flex", alignItems: "center" }}>
                                 <img width={"100%"} src={gallery[0]} alt="" />
                             </div>
                     }

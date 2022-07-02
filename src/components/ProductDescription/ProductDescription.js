@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import GlobalContext from '../../Context/GlobalContext';
 import './ProductDescription.css';
 import parse from 'html-react-parser';
+import CartOverlay from '../CartOverlay/CartOverlay';
 
 function withParams(Component) {
     return props => <Component {...props} params={useParams()} />;
@@ -62,7 +63,7 @@ class ProductDescription extends Component {
 
         const { name, gallery, prices, inStock, attributes, description } = this.state.singleProduct;
         const { displayImage } = this.state;
-        const { currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, order } = this.context;
+        const { currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, order, openCartOverlay } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
         console.log(order);
 
@@ -124,7 +125,9 @@ class ProductDescription extends Component {
                     </div>
                 </div>
 
-
+                <div style={{ display: `${openCartOverlay ? "block" : "none"}` }} className='overlayContainer'>
+                    <CartOverlay></CartOverlay>
+                </div>
 
             </div>
         )

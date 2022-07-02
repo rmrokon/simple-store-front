@@ -1,3 +1,4 @@
+import request, { gql } from "graphql-request";
 import React, { Component } from "react";
 
 const GlobalContext = React.createContext();
@@ -19,7 +20,7 @@ export class ContextProvider extends Component {
             productQuantity: 1,
             total: 0,
             tax: 0,
-            openDropDown: false
+            openDropDown: false,
         }
         this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
         this.toggleCartOverlay = this.toggleCartOverlay.bind(this);
@@ -174,6 +175,8 @@ export class ContextProvider extends Component {
         this.setState({ colorSelected: colorId })
     }
 
+
+
     render() {
         const { currency, order, colorSelected, cart, totalProductsOnCart, openDrawer, productOnDrawer, openCartOverlay, productsOnCart, productQuantity, total, tax, openDropDown } = this.state;
 
@@ -205,7 +208,7 @@ export class ContextProvider extends Component {
                 tax,
                 calculateTax,
                 toggleDropDown,
-                openDropDown
+                openDropDown,
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

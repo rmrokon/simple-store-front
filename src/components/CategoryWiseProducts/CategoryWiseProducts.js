@@ -1,23 +1,27 @@
 import request, { gql } from 'graphql-request';
 import React, { Component } from 'react';
+import { useParams } from 'react-router-dom';
 import GlobalContext from '../../Context/GlobalContext';
 import CartOverlay from '../CartOverlay/CartOverlay';
 import SelectAtrributeDrawer from '../SelectAtrributeDrawer/SelectAtrributeDrawer';
 import SingleProductCard from '../SingleProductCard/SingleProductCard';
 
-class Clothes extends Component {
+function withParams(Component) {
+    return props => <Component {...props} params={useParams()} />;
+}
+
+class CategoryWiseProducts extends Component {
     static contextType = GlobalContext;
     constructor(props) {
         super(props);
         this.state = {
-            providedData: []
+            providedData: {},
         }
-        // this.getData = this.getData.bind(this);
     }
-    getData() {
+    getData(category) {
         const query = gql`
     {
-      category(input: { title: "clothes" }) {     
+      category(input: { title: "${category}" }) {      
         name
         products {
           id
@@ -47,23 +51,37 @@ class Clothes extends Component {
     `
         request('http://localhost:4000', query)
             .then(data => this.setState({ providedData: data.category }, () => {
-                console.log("check this out", this.state.providedData)
             }))
 
     }
 
     componentDidMount() {
-        this.getData();
+        const { categoryName } = this.props.params;
+
+        this.getData(categoryName);
+        console.log("this is props", this.props);
     }
+
+
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.getData(this.props.params.categoryName);
+        }
+    }
+
     render() {
-        const { openCartOverlay } = this.context;
         const { providedData } = this.state;
+        const { name, products } = providedData;
+        const { openCartOverlay } = this.context;
+
+        console.log("this is data:", providedData, typeof providedData);
+
         return (
             <div className='container'>
-                <h1>Clothes</h1>
+                <h1>{name}</h1>
                 <div className='allProducts'>
                     {
-                        providedData?.products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
+                        products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
                     }
                 </div>
                 <SelectAtrributeDrawer></SelectAtrributeDrawer>
@@ -75,4 +93,4 @@ class Clothes extends Component {
     }
 }
 
-export default Clothes;
+export default withParams(CategoryWiseProducts);

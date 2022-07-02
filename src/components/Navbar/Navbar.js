@@ -14,6 +14,7 @@ class Navbar extends Component {
         this.state = {
             categories: [],
             currencies: [],
+            category: ""
         }
 
     }
@@ -50,11 +51,14 @@ class Navbar extends Component {
             }))
     }
 
+    handleCategory(category) {
+        console.log(category)
+    }
+
     componentDidMount() {
         this.getData();
         this.getCurrency();
     }
-
 
     render() {
         const { handleCurrencyChange, totalProductsOnCart, toggleCartOverlay, currency, toggleDropDown, openDropDown } = this.context;
