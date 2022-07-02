@@ -70,7 +70,6 @@ class ProductDescription extends Component {
 
         return (
             <div className='productDescription'>
-
                 <div className='imageContainer'>
                     <div className='flexSmallImages'>
                         {
@@ -82,12 +81,13 @@ class ProductDescription extends Component {
                     </div>
                 </div>
                 <div>
-                    <h3>{name}</h3>
-                    <p>{inStock ? "In Stock" : "Out of stock"}</p>
+                    <h3 className='bold-title' style={{ fontSize: "24px" }}>{name}</h3>
+                    <p className='title'>{inStock ? "In Stock" : "Out of stock"}</p>
                     {
                         attributes?.map(a =>
                             <div key={a.id}>
-                                <h3>{a.name}</h3>
+                                <h3 className='bold-title'>{a.name}</h3>
+
                                 <div className='attributeValues'>
                                     {
                                         a?.items?.map(item => a.type === "swatch" ? <button
@@ -106,19 +106,26 @@ class ProductDescription extends Component {
                                             <button
                                                 key={item.id}
                                                 style={{ backgroundColor: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "black" : ""}`, color: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "white" : ""}` }}
-                                                onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}
+                                                onClick={() => handleSelectAttribute(a, item)} className='singleAttribute title'>{item.value}
                                             </button>
                                         )
                                     }
-
                                 </div>
                             </div>
                         )
                     }
-                    <h3>Price</h3>
-                    <p><span>{currency}</span> {price?.amount}</p>
-                    <button onClick={() => handleAddToCart(this.state.singleProduct, price?.amount)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
-                    <div>
+                    <h3 className='bold-title'>Price</h3>
+                    <p className='title'><span>{currency}</span> {price?.amount}</p>
+                    {/* Add to Cart Button */}
+                    <button
+                        onClick={() => handleAddToCart(this.state.singleProduct, price?.amount)}
+                        id='addToCartBtn'
+                        disabled={!inStock}
+                        className='title'
+                    >ADD TO CART
+                    </button>
+
+                    <div className='title'>
                         {
                             parse(`${description}`)
                         }

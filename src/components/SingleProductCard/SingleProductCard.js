@@ -14,19 +14,20 @@ class SingleProductCard extends Component {
         const price = prices.find(p => p.currency.symbol === currency);
         return (
             <div className='productCard'>
-                <div className=''>
+                <div className='productImgContainer'>
                     <img id='productImg' src={gallery[0]} alt="" />
-                    <div style={{ display: `${!inStock ? "block" : ""}` }} className='outOfStock'><p>Out of Stock</p></div>
-                    <div
-                        onClick={() => handleOpenDrawer(this.props.product)}
+                    <div style={{ display: `${!inStock ? "block" : ""}` }} className='outOfStock title'><p>OUT OF STOCK</p></div>
+                    <img
                         className='addToCartBtn'
+                        src={addToCartBtn}
                         style={{ visibility: `${!inStock ? "hidden" : ""}` }}
-                    ><img style={{ width: "15%" }} src={addToCartBtn} alt="" /></div>
+                        onClick={() => handleOpenDrawer(this.props.product)}
+                        alt="" />
                 </div>
 
                 <div>
-                    <Link to={`/productDescription/${id}`}> <h3 style={{ marginTop: "0", marginBottom: "0" }}>{name}</h3></Link>
-                    <p style={{ marginTop: "0", marginBottom: "1%" }}><span>{currency}</span> {price.amount}</p>
+                    <Link to={`/productDescription/${id}`}> <h3 className='productTitle' style={{ marginTop: "8px", marginBottom: "0" }}>{name}</h3></Link>
+                    <p className='bold-title' style={{ marginTop: "0", marginBottom: "1%" }}><span>{currency}</span> {price.amount}</p>
                 </div>
 
             </div>

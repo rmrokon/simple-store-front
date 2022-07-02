@@ -21,13 +21,13 @@ class SingleProductOnCart extends Component {
         return (
             <div className='singleProductOnCartContainer'>
                 <div>
-                    <h3 style={{ fontSize: "16px" }}>{name}</h3>
-                    <p>{currency}{price?.amount}</p>
+                    <h3 className='productTitle' style={{ fontSize: "16px" }}>{name}</h3>
+                    <p className='bold-title'>{currency}{price?.amount}</p>
                     <div>
                         {
                             attributes?.map(a =>
                                 <div key={a.id}>
-                                    <h4 style={{ fontSize: "14px", fontWeight: "400" }}>{a.name}</h4>
+                                    <h4 className='title' style={{ fontSize: "16px" }}>{a.name}</h4>
                                     <div className='attributeValues'>
                                         {
                                             a?.items?.map(item => a.type === "swatch" ? <button

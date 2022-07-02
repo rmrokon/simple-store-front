@@ -5,6 +5,7 @@ import shoppingBag from '../../assets/shoppingBag.svg';
 import shoppingCart from '../../assets/shoppingCart.svg';
 import GlobalContext from '../../Context/GlobalContext';
 import request, { gql } from 'graphql-request';
+import Currencies from './Currencies';
 
 
 class Navbar extends Component {
@@ -14,7 +15,7 @@ class Navbar extends Component {
         this.state = {
             categories: [],
             currencies: [],
-            activeRoute: ""
+            // activeRoute: ""
         }
 
     }
@@ -51,9 +52,9 @@ class Navbar extends Component {
             }))
     }
 
-    handleActiveRoute(route) {
-        this.setState({ activeRoute: route })
-    }
+    // handleActiveRoute(route) {
+    //     this.setState({ activeRoute: route })
+    // }
 
     componentDidMount() {
         this.getData();
@@ -61,7 +62,7 @@ class Navbar extends Component {
     }
 
     render() {
-        const { handleCurrencyChange, totalProductsOnCart, toggleCartOverlay, currency, toggleDropDown, openDropDown } = this.context;
+        const { handleCurrencyChange, totalProductsOnCart, toggleCartOverlay, currency, toggleDropDown, openDropDown, handleActiveRoute, activeRoute } = this.context;
         const { categories } = this.state;
 
 
@@ -71,11 +72,12 @@ class Navbar extends Component {
                     {
                         categories.map((category, index) =>
                             <NavLink
-                                onClick={() => this.handleActiveRoute(category.name)}
+                                className={"title"}
+                                onClick={() => handleActiveRoute(category.name)}
                                 key={index} to={`/${category.name}`}
                                 style={{
-                                    color: `${(this.state.activeRoute === category.name) ? "rgba(94, 206, 123, 1)" : ""}`,
-                                    textDecoration: `${(this.state.activeRoute === category.name) ? "underline" : ""}`
+                                    color: `${(activeRoute === category.name) ? "rgba(94, 206, 123, 1)" : ""}`,
+                                    textDecoration: `${(activeRoute === category.name) ? "underline" : ""}`
                                 }}
                             >{category.name.toUpperCase()}</NavLink>
                         )
@@ -100,11 +102,12 @@ class Navbar extends Component {
 
 
                         </button></div>
-                        <ul style={{ display: `${openDropDown ? "block" : "none"}` }} className='currencyOptions'>
+                        <Currencies currencies={this.state.currencies}></Currencies>
+                        {/* <ul style={{ display: `${openDropDown ? "block" : "none"}` }} className='currencyOptions'>
                             {
-                                this.state.currencies.map((c, index) => <li onClick={() => handleCurrencyChange(c.currency.symbol)} key={index}>{c.currency.symbol} {c.currency.label}</li>)
+                                this.state.currencies.map((c, index) => <li className='title' onClick={() => handleCurrencyChange(c.currency.symbol)} key={index}>{c.currency.symbol} {c.currency.label}</li>)
                             }
-                        </ul>
+                        </ul> */}
                     </div>
                     <div onClick={toggleCartOverlay}>
                         <small id='cart-length'>{totalProductsOnCart}</small>

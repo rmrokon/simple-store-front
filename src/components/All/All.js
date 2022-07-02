@@ -14,7 +14,6 @@ class All extends Component {
             providedData: [],
 
         }
-        // this.getData = this.getData.bind(this);
     }
     getData() {
         const query = gql`
@@ -65,7 +64,7 @@ class All extends Component {
         const { openCartOverlay } = this.context;
         return (
             <div className='container'>
-                <h1>All</h1>
+                <h1 className='title'>ALL</h1>
                 <div className='allProducts'>
                     {
                         providedData?.products?.map(product => <SingleProductCard product={product}></SingleProductCard>)

@@ -21,7 +21,10 @@ export class ContextProvider extends Component {
             total: 0,
             tax: 0,
             openDropDown: false,
+            activeRoute: "",
         }
+        // this.handleAddToCart = this.handleAddToCart.bind(this);
+        this.handleActiveRoute = this.handleActiveRoute.bind(this);
         this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
         this.toggleCartOverlay = this.toggleCartOverlay.bind(this);
         this.increaseQuantityAndPrice = this.increaseQuantityAndPrice.bind(this);
@@ -32,23 +35,28 @@ export class ContextProvider extends Component {
         this.toggleDropDown = this.toggleDropDown.bind(this);
     }
 
+    handleActiveRoute(route) {
+        this.setState({ activeRoute: route });
+        this.setState({ openCartOverlay: false });
+    }
+
     toggleDropDown() {
         this.setState({ openDropDown: !this.state.openDropDown })
     }
 
     calculateTax(totalAmount) {
-        const totalTax = (totalAmount * 21) / 100;
+        const totalTax = ((totalAmount * 21) / 100);
         this.setState({ tax: totalTax });
     }
 
     calculateTotalAmount(price, decrease = false) {
         if (!decrease) {
-            const newTotal = this.state.total + price;
+            const newTotal = (this.state.total + price);
             this.setState({ total: newTotal });
             this.calculateTax(newTotal)
         }
         if (decrease) {
-            const newTotal = this.state.total - price;
+            const newTotal = (this.state.total - price);
             this.setState({ total: newTotal });
             this.calculateTax(newTotal)
         }
@@ -85,10 +93,8 @@ export class ContextProvider extends Component {
             const { quantity, ...rest } = product.selectedAtrributes;
             const newQuantity = quantity - 1;
             product.selectedAtrributes = { ...rest, quantity: newQuantity };
-
             const newTotalProductsOnCart = this.state.totalProductsOnCart - 1;
             this.setState({ totalProductsOnCart: newTotalProductsOnCart })
-
             this.setState({ productQuantity: newQuantity });
             this.calculateTotalAmount(price, true);
             this.handleTotalProductsOnCart(true);
@@ -113,42 +119,51 @@ export class ContextProvider extends Component {
     // Adding product to the cart
 
     handleAddToCart = (product, price) => {
-        const { id } = product;
-        let orderWithSameAttributes;
-        const existingOrdersOfTheProduct = this.state.cart.filter(o => o.id === id);
-
-        if (existingOrdersOfTheProduct) {
-            orderWithSameAttributes = existingOrdersOfTheProduct.find(order => {
-                const { id, quantity, ...rest } = order;
-                return JSON.stringify(this.state.order) === JSON.stringify(rest);
-            })
+        if (this.state.productOnDrawer.attributes.length !== Object.keys(this.state.order).length) {
+            return alert("Choose your varient first");
         }
-
-        console.log("this is orderwithsame atto", orderWithSameAttributes)
-
-        if (!orderWithSameAttributes) {
-            this.calculateTotalAmount(price);
-            const newOrder = {
-                ...this.state.order,
-                id,
-                quantity: 1,
+        else {
+            const { id } = product;
+            let orderWithSameAttributes;
+            const existingOrdersOfTheProduct = this.state.productsOnCart.filter(o => o.id === id);
+            console.log("this is existingOrdersOfTheProduct", existingOrdersOfTheProduct)
+            if (existingOrdersOfTheProduct) {
+                orderWithSameAttributes = existingOrdersOfTheProduct.find(order => {
+                    console.log("Order:", order);
+                    console.log("Order on State:", this.state.order);
+                    const { id, quantity, ...rest } = order.selectedAtrributes;
+                    return JSON.stringify(this.state.order) === JSON.stringify(rest);
+                })
             }
-            const newCart = [...this.state.cart, newOrder]
-            console.log("this is newcart", newCart)
-            this.setState({ cart: newCart });
-            const _id = Math.floor(Math.random() * 1000);
-            const productWithSelectedAtrributes = { ...product, _id, selectedAtrributes: newOrder }
-            let orderedProducts = [...this.state.productsOnCart, productWithSelectedAtrributes];
-            console.log("this is ordered products", orderedProducts);
-            this.setState({ productsOnCart: orderedProducts });
-            this.setState({ order: {} });
-            this.handleTotalProductsOnCart();
 
-        } else {
-            alert("Product with the same attributes already added to the cart!");
+            console.log("this is orderwithsame atto", orderWithSameAttributes)
+
+
+
+
+            if (!orderWithSameAttributes) {
+                this.calculateTotalAmount(price);
+                const newOrder = {
+                    ...this.state.order,
+                    id,
+                    quantity: 1,
+                }
+                const _id = Math.floor(Math.random() * 1000);
+                const productWithSelectedAtrributes = { ...product, _id, selectedAtrributes: newOrder }
+                let orderedProducts = [...this.state.productsOnCart, productWithSelectedAtrributes];
+                console.log("this is ordered products", orderedProducts);
+                this.setState({ productsOnCart: orderedProducts });
+                this.setState({ order: {} });
+                this.handleTotalProductsOnCart();
+
+            } else {
+                alert("Product with the same attributes already added to the cart!");
+                this.setState({ order: {} });
+            }
         }
 
     }
+
     handleProductDetails = (productClicked) => {
         this.setState({ product: productClicked })
     }
@@ -178,9 +193,9 @@ export class ContextProvider extends Component {
 
 
     render() {
-        const { currency, order, colorSelected, cart, totalProductsOnCart, openDrawer, productOnDrawer, openCartOverlay, productsOnCart, productQuantity, total, tax, openDropDown } = this.state;
+        const { currency, order, colorSelected, cart, totalProductsOnCart, openDrawer, productOnDrawer, openCartOverlay, productsOnCart, productQuantity, total, tax, openDropDown, activeRoute } = this.state;
 
-        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart, handleOpenDrawer, toggleCartOverlay, increaseQuantityAndPrice, decreaseQuantityAndPrice, calculateTax, toggleDropDown } = this;
+        const { handleCurrencyChange, handleAddToCart, handleProductDetails, handleSelectAttribute, handleSelectColor, getCart, handleOpenDrawer, toggleCartOverlay, increaseQuantityAndPrice, decreaseQuantityAndPrice, calculateTax, toggleDropDown, handleActiveRoute } = this;
 
         return (
             <GlobalContext.Provider value={{
@@ -209,6 +224,8 @@ export class ContextProvider extends Component {
                 calculateTax,
                 toggleDropDown,
                 openDropDown,
+                handleActiveRoute,
+                activeRoute,
             }}>
                 {this.props.children}
             </GlobalContext.Provider>

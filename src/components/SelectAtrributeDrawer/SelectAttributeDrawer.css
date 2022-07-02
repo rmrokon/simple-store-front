@@ -1,11 +1,18 @@
 .aside-drawer {
-    background-color: gray;
+    background-color: white;
+    border: 1px solid slategray;
     opacity: 95%;
-    width: 30%;
+    width: 40%;
     height: auto;
     position: fixed;
-    top: 15%;
+    top: 25%;
     left: 70%;
+}
+
+.closeDrawerBtn {
+    border: 0;
+    background-color: white;
+    font-size: 24px;
 }
 
 .select-Attributes {

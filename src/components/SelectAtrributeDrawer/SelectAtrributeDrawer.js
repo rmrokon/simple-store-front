@@ -11,14 +11,14 @@ class SelectAtrributeDrawer extends Component {
         console.log("select Opened")
         return (
             <div style={{ display: `${openDrawer ? "block" : "none"}` }} className='aside-drawer'>
-                <button onClick={handleOpenDrawer}>X</button>
+                <button className='closeDrawerBtn bold-title' onClick={handleOpenDrawer}>X</button>
 
                 <div className='select-Attributes'>
-                    <h3>{name}</h3>
+                    <h3 className='bold-title'>{name}</h3>
                     {
-                        !inStock ? <h3 style={{ color: "red" }}>Stock Out</h3> : attributes?.map(a =>
+                        attributes?.map(a =>
                             <div key={a.id}>
-                                <h3>{a.name}</h3>
+                                <h3 className='title'>{a.name}</h3>
                                 <div className='attributeValues'>
                                     {
                                         a?.items?.map(item => a.type === "swatch" ? <button
@@ -36,8 +36,14 @@ class SelectAtrributeDrawer extends Component {
 
                                             <button
                                                 key={item.id}
-                                                style={{ backgroundColor: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "black" : ""}`, color: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "white" : ""}` }}
-                                                onClick={() => handleSelectAttribute(a, item)} className='singleAttribute'>{item.value}
+                                                style={{
+                                                    backgroundColor: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "black" : ""}`,
+
+                                                    color: `${(Object.keys(order).includes(a.id) && order[a.id] === item.value) ? "white" : ""}`
+                                                }}
+
+                                                onClick={() => handleSelectAttribute(a, item)}
+                                                className='singleAttribute title'>{item.value}
                                             </button>
                                         )
                                     }
@@ -46,9 +52,15 @@ class SelectAtrributeDrawer extends Component {
                             </div>
                         )
                     }
-                    <h3>Price</h3>
-                    <p><span>{currency}</span> {price?.amount}</p>
-                    <button onClick={() => handleAddToCart(productOnDrawer, price?.amount)} id='addToCartBtn' disabled={!inStock}>ADD TO CART</button>
+                    <h3 className='title'>Price</h3>
+                    <p className='title'><span>{currency}</span> {price?.amount}</p>
+                    <button
+                        className='title'
+                        onClick={() => handleAddToCart(productOnDrawer, price?.amount)}
+                        id='addToCartBtn'
+                        disabled={!inStock}
+                    >ADD TO CART
+                    </button>
                 </div>
             </div>
         );

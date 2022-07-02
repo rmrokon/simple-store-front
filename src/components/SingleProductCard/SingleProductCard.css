@@ -1,6 +1,6 @@
 .productCard {
     width: 350px;
-    height: 500px;
+    height: 430px;
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     padding: 10px;
     border-radius: 8px;
@@ -18,11 +18,11 @@
 
 .addToCartBtn {
     visibility: hidden;
-    position: relative;
-    text-align: end;
-    bottom: 30px;
-    margin-top: 0;
-    margin-bottom: 0;
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    bottom: 15%;
+    right: 5%;
 }
 
 .productCard:hover .addToCartBtn {
@@ -34,8 +34,8 @@
     top: 2%;
     left: 2%;
     font-size: 36px;
-    background-color: rgba(128, 128, 128, 0.287);
-    width: 352px;
+    background-color: rgba(128, 128, 128, 0.163);
+    width: 353px;
     height: 352px;
     text-align: center;
     border-radius: 8px;
@@ -45,5 +45,6 @@
 .outOfStock p {
     position: absolute;
     top: 30%;
-    left: 25%;
+    left: 15%;
+    color: gray;
 }
