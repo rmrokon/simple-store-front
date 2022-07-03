@@ -21,8 +21,9 @@ a:hover {
     align-items: center;
 }
 
-.selecCurrencyContainer {
+.selectCurrencyContainer {
     position: relative;
+    cursor: pointer;
 
 }
 

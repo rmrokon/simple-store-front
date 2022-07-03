@@ -67,7 +67,7 @@ class All extends Component {
                 <h1 className='title'>ALL</h1>
                 <div className='allProducts'>
                     {
-                        providedData?.products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
+                        providedData?.products?.map(product => <SingleProductCard key={product.id} product={product}></SingleProductCard>)
                     }
                 </div>
                 <SelectAtrributeDrawer></SelectAtrributeDrawer>

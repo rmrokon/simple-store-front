@@ -81,7 +81,7 @@ class CategoryWiseProducts extends Component {
                 <h1 style={{ marginBottom: "5%" }} className='title'>{name?.toUpperCase()}</h1>
                 <div className='allProducts'>
                     {
-                        products?.map(product => <SingleProductCard product={product}></SingleProductCard>)
+                        products?.map(product => <SingleProductCard key={product.id} product={product}></SingleProductCard>)
                     }
                 </div>
                 <SelectAtrributeDrawer></SelectAtrributeDrawer>

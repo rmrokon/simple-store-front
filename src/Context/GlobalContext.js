@@ -41,7 +41,7 @@ export class ContextProvider extends Component {
     }
 
     toggleDropDown() {
-        this.setState({ openDropDown: !this.state.openDropDown })
+        this.setState({ openDropDown: !this.state.openDropDown });
     }
 
     calculateTax(totalAmount) {
