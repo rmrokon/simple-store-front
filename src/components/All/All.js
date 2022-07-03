@@ -47,9 +47,7 @@ class All extends Component {
     }
     `
         request('http://localhost:4000', query)
-            .then(data => this.setState({ providedData: data.category }, () => {
-                console.log("check this out", this.state.providedData)
-            }))
+            .then(data => this.setState({ providedData: data.category }))
 
     }
 

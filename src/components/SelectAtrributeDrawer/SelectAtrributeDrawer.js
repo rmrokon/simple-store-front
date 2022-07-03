@@ -8,7 +8,7 @@ class SelectAtrributeDrawer extends Component {
         const { openDrawer, handleOpenDrawer, productOnDrawer, currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, order } = this.context;
         const { name, prices, inStock, attributes } = productOnDrawer;
         const price = prices?.find(p => p.currency.symbol === currency);
-        console.log("select Opened")
+
         return (
             <div style={{ display: `${openDrawer ? "block" : "none"}` }} className='aside-drawer'>
                 <button className='closeDrawerBtn bold-title' onClick={handleOpenDrawer}>X</button>

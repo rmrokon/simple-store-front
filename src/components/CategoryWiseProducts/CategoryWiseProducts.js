@@ -50,8 +50,7 @@ class CategoryWiseProducts extends Component {
     }
     `
         request('http://localhost:4000', query)
-            .then(data => this.setState({ providedData: data.category }, () => {
-            }))
+            .then(data => this.setState({ providedData: data.category }))
 
     }
 
@@ -59,7 +58,6 @@ class CategoryWiseProducts extends Component {
         const { categoryName } = this.props.params;
 
         this.getData(categoryName);
-        console.log("this is props", this.props);
     }
 
 
@@ -73,8 +71,6 @@ class CategoryWiseProducts extends Component {
         const { providedData } = this.state;
         const { name, products } = providedData;
         const { openCartOverlay } = this.context;
-
-        console.log("this is data:", providedData, typeof providedData);
 
         return (
             <div className='container'>

@@ -65,7 +65,6 @@ class ProductDescription extends Component {
         const { displayImage } = this.state;
         const { currency, handleSelectAttribute, handleSelectColor, colorSelected, handleAddToCart, order, openCartOverlay } = this.context;
         const price = prices?.find(p => p.currency.symbol === currency);
-        console.log(order);
 
 
         return (

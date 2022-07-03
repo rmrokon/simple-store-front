@@ -20,7 +20,6 @@ export default class Currencies extends Component {
 
     handleClickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
-            console.log("inside new function")
             if (this.context.openDropDown) {
                 this.context.toggleDropDown();
             }

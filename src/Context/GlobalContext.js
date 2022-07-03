@@ -23,7 +23,7 @@ export class ContextProvider extends Component {
             openDropDown: false,
             activeRoute: "",
         }
-        // this.handleAddToCart = this.handleAddToCart.bind(this);
+
         this.handleActiveRoute = this.handleActiveRoute.bind(this);
         this.handleOpenDrawer = this.handleOpenDrawer.bind(this);
         this.toggleCartOverlay = this.toggleCartOverlay.bind(this);
@@ -126,19 +126,13 @@ export class ContextProvider extends Component {
             const { id } = product;
             let orderWithSameAttributes;
             const existingOrdersOfTheProduct = this.state.productsOnCart.filter(o => o.id === id);
-            console.log("this is existingOrdersOfTheProduct", existingOrdersOfTheProduct)
+
             if (existingOrdersOfTheProduct) {
                 orderWithSameAttributes = existingOrdersOfTheProduct.find(order => {
-                    console.log("Order:", order);
-                    console.log("Order on State:", this.state.order);
                     const { id, quantity, ...rest } = order.selectedAtrributes;
                     return JSON.stringify(this.state.order) === JSON.stringify(rest);
                 })
             }
-
-            console.log("this is orderwithsame atto", orderWithSameAttributes)
-
-
 
 
             if (!orderWithSameAttributes) {
@@ -151,7 +145,7 @@ export class ContextProvider extends Component {
                 const _id = Math.floor(Math.random() * 1000);
                 const productWithSelectedAtrributes = { ...product, _id, selectedAtrributes: newOrder }
                 let orderedProducts = [...this.state.productsOnCart, productWithSelectedAtrributes];
-                console.log("this is ordered products", orderedProducts);
+
                 this.setState({ productsOnCart: orderedProducts });
                 this.setState({ order: {} });
                 this.handleTotalProductsOnCart();
